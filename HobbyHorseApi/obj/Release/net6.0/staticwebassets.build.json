@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "fDyCeyl79J8Mdr0uoYVwxdZnLBkONtVfK3thF0iaFOM=",
+  "Source": "HobbyHorseApi",
+  "BasePath": "_content/HobbyHorseApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "HobbyHorseApi\\wwwroot",
+      "Source": "HobbyHorseApi",
+      "ContentRoot": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\wwwroot\\",
+      "BasePath": "_content/HobbyHorseApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\wwwroot\\favicon.ico",
+      "SourceId": "HobbyHorseApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\wwwroot\\",
+      "BasePath": "_content/HobbyHorseApi",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
+    }
+  ]
+}
