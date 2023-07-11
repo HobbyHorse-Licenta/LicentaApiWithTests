@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApiWithTests\\HobbyHorseApi\\HobbyHorseApi.csproj": {}
+    "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\HobbyHorseApi.csproj": {}
   },
   "projects": {
-    "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApiWithTests\\HobbyHorseApi\\HobbyHorseApi.csproj": {
+    "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\HobbyHorseApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApiWithTests\\HobbyHorseApi\\HobbyHorseApi.csproj",
+        "projectUniqueName": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\HobbyHorseApi.csproj",
         "projectName": "HobbyHorseApi",
-        "projectPath": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApiWithTests\\HobbyHorseApi\\HobbyHorseApi.csproj",
+        "projectPath": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\HobbyHorseApi.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApiWithTests\\HobbyHorseApi\\obj\\",
+        "outputPath": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
