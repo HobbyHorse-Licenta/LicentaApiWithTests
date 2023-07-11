@@ -3,9 +3,6 @@ using HobbyHorseApi.RabbitMQ;
 using HobbyHorseApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OneSignalApi.Api;
-using OneSignalApi.Model;
-using OneSignalApi.Client;
 
 using Expo.Server.Client;
 using Expo.Server.Models;
