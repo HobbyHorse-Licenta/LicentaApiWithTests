@@ -1,0 +1,51 @@
+name: Build and test .NET HobbyHorseApi
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore NuGet packages
+      run: dotnet restore HobbyHorseApi/HobbyHorseApi.csproj
+    - name: Build
+      run: dotnet build --no-restore HobbyHorseApi/HobbyHorseApi.csproj
+  
+  test:
+    name: Test
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Test
+      run: dotnet test HobbyHorseApi.Tests/HobbyHorseApi.Tests.csproj
+  
+  deploy:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{ needs.test.result == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "hobby-horse-api-staging"
+          heroku_email: "alex99_pop@yahoo.com"
