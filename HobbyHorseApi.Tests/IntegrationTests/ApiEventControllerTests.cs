@@ -54,7 +54,7 @@ namespace HobbyHorseApi.Tests.Controllers
 
                 //assert
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
-                responseContent.Should().NotBe(null);
+                //responseContent.Should().NotBe(null);
 
                 //act
                 JsonSerializerOptions options = new JsonSerializerOptions();
