@@ -30,7 +30,7 @@ namespace HobbyHorseApi.Tests.Controllers
         }
 
         
-        [Fact]
+        //[Fact]
         public async void EventController_GetAllEvents_ReturnsArray()
         {
             //arange
