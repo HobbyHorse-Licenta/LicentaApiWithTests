@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KwSy68+X4QOvyLOQLYsC0RWB4kB1i5xr9iwZGDo57NdElBc4roH48pkAGbB3uov/JeOj+hQqnKIf5G51CmukLQ==",
+  "dgSpecHash": "YAhQgC1aHDnNmg346TKutJLZ03cyHYAXnQI11SNUq+pfpPoWaaYbvm0olukVSqrpykk7OA1bCPgck63BsaGqsw==",
   "success": true,
-  "projectFilePath": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApi\\HobbyHorseApi.csproj",
+  "projectFilePath": "D:\\Licenta\\Project\\restApi\\HobbyHorseApi\\HobbyHorseApiWithTests\\HobbyHorseApi\\HobbyHorseApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alex\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\expo.server.sdk\\1.0.2\\expo.server.sdk.1.0.2.nupkg.sha512",

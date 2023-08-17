@@ -35,7 +35,6 @@ namespace HobbyHorseApi.Tests.Controllers
         {
             //arange
             string getAllEventsUrl = _apiUrl + $"/event/getAllEvents";
-            Console.WriteLine($"URL called: {getAllEventsUrl}");
 
             //act
             using (var httpClient = new HttpClient())
