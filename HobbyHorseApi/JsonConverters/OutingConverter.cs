@@ -15,7 +15,7 @@ namespace HobbyHorseApi.JsonConverters
             JsonElement rootElement = jsonDocument.RootElement;
 
             Console.WriteLine("Am primit si deserializam\n" + JsonConvert.SerializeObject(jsonDocument));
-            JsonElement trailElement = rootElement.GetProperty("trail");
+            JsonElement trailElement = rootElement.GetProperty("Trail");
             
             Trail trail = null;
             try
@@ -130,7 +130,7 @@ namespace HobbyHorseApi.JsonConverters
             if(value.Trail.GetType() == typeof(ParkTrail))
             {
                 ParkTrail parkTrail = (ParkTrail)value.Trail;
-                writer.WriteStartObject("trail");
+                writer.WriteStartObject("Trail");
 
                 writer.WriteString("id", parkTrail.Id);
                 writer.WriteString("name", parkTrail.Name);
@@ -158,7 +158,7 @@ namespace HobbyHorseApi.JsonConverters
             else
             {
                 CustomTrail customTrail = (CustomTrail)value.Trail;
-                writer.WriteStartObject("trail");
+                writer.WriteStartObject("Trail");
 
                 writer.WriteString("id", customTrail.Id);
                 writer.WriteString("name", customTrail.Name);
