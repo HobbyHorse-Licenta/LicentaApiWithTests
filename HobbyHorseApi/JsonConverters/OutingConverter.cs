@@ -14,8 +14,8 @@ namespace HobbyHorseApi.JsonConverters
             using var jsonDocument = JsonDocument.ParseValue(ref reader);
             JsonElement rootElement = jsonDocument.RootElement;
 
-            Console.WriteLine("Am primit si deserializam\n" + JsonConvert.SerializeObject(jsonDocument));
-            JsonElement trailElement = rootElement.GetProperty("Trail");
+            Console.WriteLine("Am primit si deserializam (suntem in OutingConverter Read function)\n");
+            JsonElement trailElement = rootElement.GetProperty("trail");
             
             Trail trail = null;
             try
@@ -74,12 +74,12 @@ namespace HobbyHorseApi.JsonConverters
             outing.Days = JsonConvert.DeserializeObject<List<Day>>(daysElement.GetRawText());
 
             //////NEWLY ADDED////
-            JsonElement votedDay;
-            if (rootElement.TryGetProperty("votedDay", out votedDay) == true)
-            {
-                outing.VotedDay = JsonConvert.DeserializeObject<Day>(rootElement.GetProperty("votedDay").GetRawText());
-            }
-            else outing.VotedDay = null;
+            //JsonElement votedDay;
+            //if (rootElement.TryGetProperty("votedDay", out votedDay) == true)
+            //{
+            //    outing.VotedDay = JsonConvert.DeserializeObject<Day>(rootElement.GetProperty("votedDay").GetRawText());
+            //}
+            //else outing.VotedDay = null;
 
             JsonElement votedStartTime;
             if (rootElement.TryGetProperty("votedStartTime", out votedStartTime) == true)
@@ -89,6 +89,7 @@ namespace HobbyHorseApi.JsonConverters
             else outing.VotedStartTime = outing.StartTime;
             ///////////////////
 
+            Console.WriteLine("Am deserializat\n");
             return outing;
         }
 
@@ -106,13 +107,13 @@ namespace HobbyHorseApi.JsonConverters
             //////NEWLY ADDED////
             writer.WriteNumber("votedStartTime", value.VotedStartTime);
 
-            if (value.VotedDay != null)
-            {
-                writer.WriteStartObject("votedDay");
-                writer.WriteString("id", value.VotedDay.Id);
-                writer.WriteNumber("dayOfMonth", value.VotedDay.DayOfMonth);
-                writer.WriteEndObject();
-            }
+            //if (value.VotedDay != null)
+            //{
+            //    writer.WriteStartObject("votedDay");
+            //    writer.WriteString("id", value.VotedDay.Id);
+            //    writer.WriteNumber("dayOfMonth", value.VotedDay.DayOfMonth);
+            //    writer.WriteEndObject();
+            //}
             ///////////////////
 
             writer.WriteStartArray("days");
@@ -130,7 +131,7 @@ namespace HobbyHorseApi.JsonConverters
             if(value.Trail.GetType() == typeof(ParkTrail))
             {
                 ParkTrail parkTrail = (ParkTrail)value.Trail;
-                writer.WriteStartObject("Trail");
+                writer.WriteStartObject("trail");
 
                 writer.WriteString("id", parkTrail.Id);
                 writer.WriteString("name", parkTrail.Name);
@@ -143,8 +144,9 @@ namespace HobbyHorseApi.JsonConverters
                 }
                 writer.WriteNumber("openingHour", parkTrail.OpeningHour);
                 writer.WriteNumber("closingHour", parkTrail.ClosingHour);
-                
-                    writer.WriteStartObject("location");
+
+                //location object should not serialized here?
+                writer.WriteStartObject("location");
                     writer.WriteString("id", parkTrail.Location.Id);
                     writer.WriteString("name", parkTrail.Location.Name);
                     writer.WriteString("imageUrl", parkTrail.Location.ImageUrl);
@@ -152,13 +154,13 @@ namespace HobbyHorseApi.JsonConverters
                     writer.WriteNumber("long", parkTrail.Location.Long);
                     writer.WriteEndObject();
 
-                //location object is not serialized here
+                
                 writer.WriteEndObject();
             }
             else
             {
                 CustomTrail customTrail = (CustomTrail)value.Trail;
-                writer.WriteStartObject("Trail");
+                writer.WriteStartObject("trail");
 
                 writer.WriteString("id", customTrail.Id);
                 writer.WriteString("name", customTrail.Name);

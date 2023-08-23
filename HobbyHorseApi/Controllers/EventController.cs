@@ -55,11 +55,13 @@ namespace HobbyHorseApi.Controllers
         {
             try
             {
-                //notifiy all users of the new event
-                NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
 
                 Console.WriteLine("I'm in controller, about to post the event");
                 var returnedEvent = await _service.PostEvent(evnt);
+
+                //notifiy all users of the new event
+                NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
+                
                 return Ok(returnedEvent);
             }
             catch (Exception ex)

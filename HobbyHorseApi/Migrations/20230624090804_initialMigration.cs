@@ -357,7 +357,7 @@ namespace HobbyHorseApi.Migrations
                     EventId = table.Column<string>(type: "varchar(255)", nullable: false),
                     StartTime = table.Column<double>(type: "double", nullable: false),
                     EndTime = table.Column<double>(type: "double", nullable: false),
-                    VotedDayId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    VotedDayId = table.Column<string>(type: "varchar(255)", nullable: true),
                     VotedStartTime = table.Column<double>(type: "double", nullable: false),
                     SkatePracticeStyle = table.Column<string>(type: "longtext", nullable: false),
                     TrailId = table.Column<string>(type: "varchar(255)", nullable: false),

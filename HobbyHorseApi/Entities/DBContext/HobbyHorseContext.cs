@@ -83,7 +83,7 @@ namespace HobbyHorseApi.Entities.DBContext
                 entity.HasMany(outing => outing.Days).WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(outing => outing.VotedDay);
+                //entity.HasOne(outing => outing.VotedDay);
 
             });
             modelBuilder.Entity<ParkTrail>(entity =>
