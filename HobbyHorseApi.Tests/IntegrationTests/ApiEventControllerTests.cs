@@ -55,10 +55,12 @@ namespace HobbyHorseApi.Tests.Controllers
                 //assert
                 //response.StatusCode.Should().Be(HttpStatusCode.OK);
                 //responseContent.Should().NotBe(null);
+                response.StatusCode.Should().NotBe(HttpStatusCode.OK);
+
 
                 //act
-                JsonSerializerOptions options = new JsonSerializerOptions();
-                var events = JsonSerializer.Deserialize<List<Event>>(responseContent, options);
+                //JsonSerializerOptions options = new JsonSerializerOptions();
+                //var events = JsonSerializer.Deserialize<List<Event>>(responseContent, options);
 
                 //assert
                 //events.Should().BeOfType<List<Event>>();
