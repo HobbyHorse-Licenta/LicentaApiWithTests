@@ -60,6 +60,7 @@ namespace HobbyHorseApi.Controllers
                 var returnedEvent = await _service.PostEvent(evnt);
 
                 //notifiy all users of the new event
+                Console.WriteLine("Sending notifications");
                 NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
                 
                 return Ok(returnedEvent);
