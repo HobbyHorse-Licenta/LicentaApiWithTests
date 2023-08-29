@@ -146,16 +146,18 @@ namespace HobbyHorseApi.JsonConverters
                 writer.WriteNumber("closingHour", parkTrail.ClosingHour);
 
                 //location object should not serialized here?
-                //writer.WriteStartObject("location");
-                //    writer.WriteString("id", parkTrail.Location.Id);
-                //    writer.WriteString("name", parkTrail.Location.Name);
-                //    writer.WriteString("imageUrl", parkTrail.Location.ImageUrl);
-                //    writer.WriteNumber("lat", parkTrail.Location.Lat);
-                //    writer.WriteNumber("long", parkTrail.Location.Long);
-                //    writer.WriteEndObject();
+                if(parkTrail.Location != null)
+                {
+                    writer.WriteStartObject("location");
+                    writer.WriteString("id", parkTrail.Location.Id);
+                    writer.WriteString("name", parkTrail.Location.Name);
+                    writer.WriteString("imageUrl", parkTrail.Location.ImageUrl);
+                    writer.WriteNumber("lat", parkTrail.Location.Lat);
+                    writer.WriteNumber("long", parkTrail.Location.Long);
+                    writer.WriteEndObject();
+                }
 
-                
-                //writer.WriteEndObject();
+                writer.WriteEndObject();
             }
             else
             {
