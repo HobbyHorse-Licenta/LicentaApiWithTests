@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HobbyHorseApi.Utils;
 using HobbyHorseApi.JsonConverters;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HobbyHorseApi.Controllers
 {
@@ -26,12 +27,14 @@ namespace HobbyHorseApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly PushApiClient _pushApiClient;
+        private readonly INotificationService _notifService;
         private readonly SenderAndReceiver eventsSender = new SenderAndReceiver();
 
-        public NotificationController(IUserService userService)
+        public NotificationController(IUserService userService, INotificationService notifService)
         {
             _userService = userService;
             _pushApiClient = new PushApiClient();
+            _notifService = notifService;
         }
 
 
@@ -61,5 +64,23 @@ namespace HobbyHorseApi.Controllers
                 Console.WriteLine(ex.Message);
             }
         }
+
+        [HttpGet("get/notifTokenForSkateProfile/{skateProfileId}")]
+        public async Task<ActionResult<string>> GetNotificationTokenForSkateProfile(string skateProfileId)
+        {
+            try
+            {
+                string notifToken = await _notifService.GetNotificationTokenForSkateProfile(skateProfileId);
+                return Ok(notifToken);
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500);
+            }
+        }
+
     }
 }

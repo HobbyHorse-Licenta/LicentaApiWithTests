@@ -25,13 +25,15 @@ namespace HobbyHorseApi.Controllers
         private readonly IEventService _service;
         private readonly PushApiClient _pushApiClient;
         private readonly SenderAndReceiver _eventsSender;
+        private readonly INotificationService _notifService;
 
 
-        public EventController(IEventService service, SenderAndReceiver eventsSender)
+        public EventController(IEventService service, SenderAndReceiver eventsSender, INotificationService notifService)
         {
            _service = service;
             _eventsSender = eventsSender;
             _pushApiClient = new PushApiClient();
+            _notifService = notifService;
         }
 
         [HttpPost("postWithModifications")]
@@ -61,8 +63,26 @@ namespace HobbyHorseApi.Controllers
 
                 //notifiy all users of the new event
                 Console.WriteLine("Sending notifications");
-                NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
-                
+                if (evnt.RecommendedSkateProfiles.Count() > 0 && evnt.RecommendedSkateProfiles[0].User != null)
+                {
+                    NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
+                }
+                else
+                {
+                    List<string> notifTokens = new List<string>();
+
+                    foreach (SkateProfile skateProfile in evnt.RecommendedSkateProfiles)
+                    {
+                        string token = await _notifService.GetNotificationTokenForSkateProfile(skateProfile.Id);
+                        notifTokens.Add(token);
+                    }
+
+                    if (notifTokens.Count > 0)
+                    {
+                        NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "New Event", "You have new event suggestions");
+                    }
+                }
+
                 return Ok(returnedEvent);
             }
             catch (Exception ex)
@@ -77,9 +97,32 @@ namespace HobbyHorseApi.Controllers
         {
             try
             {
-                NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles.Concat(evnt.SkateProfiles).ToList(), "Event changes", "Existing event changed");
-
                 var returnedEvent = await _service.PutEvent(evnt);
+
+                List<SkateProfile> allSkateProfiles = evnt.RecommendedSkateProfiles.Concat(evnt.SkateProfiles).ToList();
+
+                bool needToRetrieveNotifToken = true;
+                if(allSkateProfiles.Count() > 0 && allSkateProfiles[0].User != null)
+                {
+                    NotificationUtil.SendNotificationToUsersWithSkateProfiles(allSkateProfiles, "Event changes", "Existing event changed");
+                }
+                else
+                {
+                    List<string> notifTokens = new List<string>();
+
+                    foreach(SkateProfile skateProfile in allSkateProfiles)
+                    {
+                       string token = await _notifService.GetNotificationTokenForSkateProfile(skateProfile.Id);
+                        notifTokens.Add(token);
+                    }
+
+                    if(notifTokens.Count > 0)
+                    {
+                        NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "Event changes", "Existing event changed");
+                    }
+                }
+
+
                 return Ok(returnedEvent);
             }
             catch (Exception ex)

@@ -19,6 +19,25 @@ namespace HobbyHorseApi.Utils
         {
             _pushApiClient = new PushApiClient();
         }
+
+        public static async Task SendNotificationToUsersWithNotifToken(List<string> notificationTokens, string messageTitle, string message)
+        {
+            if (notificationTokens != null && notificationTokens.Count > 0)
+            {
+                try
+                {
+                    await ExpoNotifServer.SendNotificationToFrontEndClients(_pushApiClient, notificationTokens, messageTitle, message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No notification tokens provided to send notifications to");
+            }
+        }
         public static async Task SendNotificationToUsersWithSkateProfiles(List<SkateProfile> skateProfiles, string messageTitle, string message)
         {
             List<string> clients = new List<string>();
