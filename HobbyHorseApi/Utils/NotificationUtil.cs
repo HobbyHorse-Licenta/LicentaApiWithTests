@@ -24,14 +24,37 @@ namespace HobbyHorseApi.Utils
             List<string> clients = new List<string>();
             if (skateProfiles == null || skateProfiles.Count == 0)
                 return;
-            foreach (SkateProfile skateProfile in skateProfiles)
+            try
             {
-                if (skateProfile.User != null && skateProfile.User.PushNotificationToken != null && skateProfile.User.PushNotificationToken.Length > 0)
+                foreach (SkateProfile skateProfile in skateProfiles)
                 {
-                    clients.Add(skateProfile.User.PushNotificationToken);
+                    if (skateProfile.User != null && skateProfile.User.PushNotificationToken != null && skateProfile.User.PushNotificationToken.Length > 0)
+                    {
+                        clients.Add(skateProfile.User.PushNotificationToken);
+                    }
                 }
             }
-            await ExpoNotifServer.SendNotificationToFrontEndClients(_pushApiClient, clients, messageTitle, message);
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            if (clients.Count > 0)
+            {
+                try
+                {
+                    await ExpoNotifServer.SendNotificationToFrontEndClients(_pushApiClient, clients, messageTitle, message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No users to send notifications to, maybe they didnt allow for notifications");
+            }
+           
         }
 
         public static async Task SendNotificationToUsersWithUserIds(IUserService userService, List<string> userIds, string messageTitle, string message)
