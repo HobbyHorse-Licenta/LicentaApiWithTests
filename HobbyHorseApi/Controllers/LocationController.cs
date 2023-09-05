@@ -7,7 +7,7 @@ using Location = HobbyHorseApi.Entities.Location;
 
 namespace HobbyHorseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("location")]
     public class LocationController : ControllerBase

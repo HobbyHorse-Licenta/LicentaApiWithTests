@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HobbyHorseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("test")]
     public class TestController : ControllerBase

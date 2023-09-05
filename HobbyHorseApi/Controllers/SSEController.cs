@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HobbyHorseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("sse")]
     public class SSEController : ControllerBase

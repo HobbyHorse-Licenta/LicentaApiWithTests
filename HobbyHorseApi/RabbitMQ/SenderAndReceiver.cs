@@ -24,14 +24,13 @@ namespace HobbyHorseApi.RabbitMQ
         public void ProcessReveivedJson(string json)
         {
             Console.WriteLine("I received FROM events generator: " + json);
-            //Event skatingEvent = JsonConvert.DeserializeObject<Event>(json);
+   
         }
         public void SendPartialAggresiveEvent(AggresiveEvent aggresiveEvent)
         {
 
             string json = JsonSerializer.Serialize(aggresiveEvent);
 
-           // string json = JsonConvert.SerializeObject(aggresiveEvent, Formatting.Indented);
            Console.WriteLine("I am sending a partial event: " + json);
             PublishString($"{Messages.createAggresiveEvent} " + json);
         }

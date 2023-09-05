@@ -41,7 +41,6 @@ namespace HobbyHorseApi.Repositories.Implementations
             try
             {
                 var oldSchedule = await _context.Schedules
-                   //.FindAsync(scheduleId);
                 .Include(s => s.Days)
                 .Include(s => s.Zones)
                 .SingleOrDefaultAsync(s => s.Id == schedule.Id);
@@ -136,40 +135,6 @@ namespace HobbyHorseApi.Repositories.Implementations
                     .Include(schedule => schedule.Days)
                     .Include(schedule => schedule.Zones).ThenInclude(zone => zone.Location)
                     .ToListAsync();
-
-
-                ////TEMPORARY --POSTING A PARKTRIAL/////
-                ///
-                //Location loc = _context.Locations.Find("c1619586-3040-462d-8c51-1eabe6c87624");
-                //if(loc != null)
-                //{
-                //    _context.Locations.Attach(loc);
-
-                //    ParkTrail parkTrail = new ParkTrail
-                //    {
-                //        Id = Guid.NewGuid().ToString(),
-                //        Capacity = 3,
-                //        ClosingHour = 23,
-                //        OpeningHour = 10,
-                //        Name = "Parc Rozelor",
-                //        PracticeStyle = "Casual Skating",
-                //        Location = loc
-                //    };
-
-                //    await _context.Trails.AddAsync(parkTrail);
-                //    await _context.SaveChangesAsync();
-                //}
-
-
-                /////
-
-                //string query = "SELECT alexisty_hobbyHorse.DaySchedule.DaysIndex, alexisty_hobbyHorse.Days.LongForm, alexisty_hobbyHorse.Days.Index \r\nFROM alexisty_hobbyHorse.Days JOIN alexisty_hobbyHorse.DaySchedule ON  alexisty_hobbyHorse.Days.Index = alexisty_hobbyHorse.DaySchedule.DaysIndex\r\nWHERE DaySchedule.SchedulesId = \"34c91d9a-93df-4638-be0e-1f16c3441201\";";
-                //foreach (Schedule schedule in schedules)
-                //{
-                //    var days = _context.Days.FromSqlRaw(query).ToList();
-                //    Console.WriteLine("QUERY RESULT");
-                //    Console.WriteLine(days);
-                //}
 
                 return schedules;
             }

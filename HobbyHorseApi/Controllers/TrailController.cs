@@ -6,7 +6,7 @@ using System.Web;
 
 namespace HobbyHorseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("trail")]
     public class TrailController : ControllerBase

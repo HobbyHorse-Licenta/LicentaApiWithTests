@@ -20,7 +20,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace HobbyHorseApi.Controllers
 {
-//    [Authorize]
+    [Authorize]
     [ApiController]
     [Route("notification")]
     public class NotificationController : ControllerBase

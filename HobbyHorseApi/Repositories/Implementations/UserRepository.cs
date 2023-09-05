@@ -54,10 +54,6 @@ namespace HobbyHorseApi.Repositories.Implementations
                 .Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.Schedules).ThenInclude(schedule => schedule.Days)
                 .Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.Schedules).ThenInclude(schedule => schedule.Zones)
                 .Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.Schedules).ThenInclude(schedule => schedule.Zones).ThenInclude(zone => zone.Location)
-                //.Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.Events).ThenInclude(evnt => evnt.Outing).ThenInclude(outing => outing.)
-                //.Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.Events)
-                //.Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.RecommendedEvents).ThenInclude(recommendedEvent => recommendedEvent.Outing).ThenInclude(outing => outing.Days)
-                //.Include(user => user.SkateProfiles).ThenInclude(skateProfile => skateProfile.RecommendedEvents).ThenInclude(recommendedEvent => recommendedEvent.Outing).ThenInclude(outing => outing.Trail)
                 .SingleOrDefaultAsync(user => user.Id == userId);
                 if (user == null)
                 {

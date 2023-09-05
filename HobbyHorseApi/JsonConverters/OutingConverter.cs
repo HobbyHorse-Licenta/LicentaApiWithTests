@@ -104,7 +104,6 @@ namespace HobbyHorseApi.JsonConverters
             writer.WriteString("skatePracticeStyle", value.SkatePracticeStyle);
             writer.WriteBoolean("booked", value.Booked);
 
-            //////NEWLY ADDED////
             writer.WriteNumber("votedStartTime", value.VotedStartTime);
 
             //if (value.VotedDay != null)
@@ -145,7 +144,6 @@ namespace HobbyHorseApi.JsonConverters
                 writer.WriteNumber("openingHour", parkTrail.OpeningHour);
                 writer.WriteNumber("closingHour", parkTrail.ClosingHour);
 
-                //location object should not serialized here?
                 if(parkTrail.Location != null)
                 {
                     writer.WriteStartObject("location");

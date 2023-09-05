@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HobbyHorseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("skateProfile")]
     public class SkateProfileController : ControllerBase

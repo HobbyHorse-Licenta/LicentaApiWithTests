@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-//using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -83,7 +82,6 @@ namespace HobbyHorseApi.Entities.DBContext
                 entity.HasMany(outing => outing.Days).WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-                //entity.HasOne(outing => outing.VotedDay);
 
             });
             modelBuilder.Entity<ParkTrail>(entity =>
@@ -97,7 +95,6 @@ namespace HobbyHorseApi.Entities.DBContext
                 .HasForeignKey(zone => zone.ScheduleId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-               // entity.HasMany(schedule => schedule.Days).WithMany(day => day.Schedules);
                 entity.HasMany(schedule => schedule.Days).WithOne().OnDelete(DeleteBehavior.Cascade);
 
             });
@@ -116,18 +113,6 @@ namespace HobbyHorseApi.Entities.DBContext
 
                 entity.HasMany(skateprofile => skateprofile.RecommendedEvents)
                 .WithMany(recommendedEvent => recommendedEvent.RecommendedSkateProfiles);
-
-
-                //.UsingEntity<Dictionary<string, object>>(
-                //    mapping => mapping.HasOne<SkateProfile>().WithMany().HasForeignKey("Id"),
-                //    mapping => mapping.HasOne<Event>().WithMany().HasForeignKey("Id"),
-                //    mapping =>
-                //    {
-                //        mapping.ToTable("SkateProfileEventRecommendationsMapping");
-                //        mapping.HasKey("Id", "Id");
-                //        mapping.Property<string>("EventId");
-                //        mapping.Property<string>("SkateProfileId");
-                //    });
 
             });
             modelBuilder.Entity<Skill>(entity =>
@@ -167,9 +152,6 @@ namespace HobbyHorseApi.Entities.DBContext
             modelBuilder.Entity<Day>(entity =>
             {
                 entity.HasKey(e => e.Id);
-
-
-               //entity.HasMany(day => day.Schedules).WithMany(schedule => schedule.Days);
 
             });
         }

@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace HobbyHorseApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("event")]
     public class EventController : ControllerBase

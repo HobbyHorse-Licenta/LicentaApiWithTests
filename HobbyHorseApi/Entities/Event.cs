@@ -6,10 +6,6 @@ namespace HobbyHorseApi.Entities
 {
     public class Event
     {
-        //public Event()
-        //{
-
-        //}
         public string Id { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }

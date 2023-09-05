@@ -11,7 +11,6 @@ namespace HobbyHorseApi.Entities
         public double StartTime { get; set; }
         public double EndTime { get; set; }
         public List<Day> Days { get; set; }
-        //public Day? VotedDay { get; set; }
         public string? VotedDayId { get; set; }
 
         public double VotedStartTime { get; set; }
