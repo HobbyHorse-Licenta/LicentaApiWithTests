@@ -53,9 +53,8 @@ namespace HobbyHorseApi.Tests.Controllers
                 }
 
                 //assert
-                //response.StatusCode.Should().Be(HttpStatusCode.OK);
+                response.StatusCode.Should().Be(HttpStatusCode.OK);
                 //responseContent.Should().NotBe(null);
-                response.StatusCode.Should().NotBe(HttpStatusCode.OK);
 
 
                 //act
