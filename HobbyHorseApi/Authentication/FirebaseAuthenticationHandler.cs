@@ -12,9 +12,9 @@ namespace HobbyHorseApi.Authentication
     public class FirebaseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly FirebaseApp _firebaseApp;
-        public FirebaseAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock/*, FirebaseApp firebaseApp*/) : base(options, logger, encoder, clock)
+        public FirebaseAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, FirebaseApp firebaseApp) : base(options, logger, encoder, clock)
         {
-            //_firebaseApp = firebaseApp;
+            _firebaseApp = firebaseApp;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -54,11 +54,7 @@ namespace HobbyHorseApi.Authentication
             {
                 return AuthenticateResult.Fail(ex);
             }
-            //return AuthenticateResult.Success(new AuthenticationTicket(new ClaimsPrincipal(new List<ClaimsIdentity>()
-            //{
-            //    new ClaimsIdentity(new List<Claim>(), nameof(FirebaseAuthenticationHandler))
-            //}), JwtBearerDefaults.AuthenticationScheme));
-
+           
         }
 
         private IEnumerable<Claim> ToClaims(IReadOnlyDictionary<string, object> claims)
