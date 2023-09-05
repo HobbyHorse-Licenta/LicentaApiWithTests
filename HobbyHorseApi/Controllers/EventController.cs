@@ -63,15 +63,15 @@ namespace HobbyHorseApi.Controllers
 
                 //notifiy all users of the new event
                 Console.WriteLine("Sending notifications");
-                if ((evnt.RecommendedSkateProfiles.Count() > 0 && evnt.RecommendedSkateProfiles[0].User != null) ||
-                    (evnt.SkateProfiles.Count() > 0 && evnt.SkateProfiles[0].User != null))
+                if (evnt.RecommendedSkateProfiles.Count() > 0)
                 {
-                    NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
-                    NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.SkateProfiles, "Event set up", "Your event has been created. Suitable skaters have been invited");
-                }
-                else
-                {
-                    if(evnt.RecommendedSkateProfiles.Count() > 0)
+                    if(evnt.RecommendedSkateProfiles[0].User != null)
+                    {
+                        Console.WriteLine("HERE1");
+                        NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
+
+                    }
+                    else
                     {
                         List<string> notifTokens = new List<string>();
 
@@ -83,11 +83,23 @@ namespace HobbyHorseApi.Controllers
 
                         if (notifTokens.Count > 0)
                         {
+                            Console.WriteLine("HERE2");
+
                             NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "New Event", "You have new event suggestions");
                         }
                     }
+                }
 
-                    if (evnt.SkateProfiles.Count() > 0)
+                if(evnt.SkateProfiles.Count() > 0)
+                {
+                    if(evnt.SkateProfiles[0].User != null)
+                    {
+                        Console.WriteLine("HERE3");
+
+                        NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.SkateProfiles, "Event set up", "Your event has been created. Suitable skaters have been invited");
+
+                    }
+                    else
                     {
                         List<string> notifTokens = new List<string>();
 
@@ -99,10 +111,11 @@ namespace HobbyHorseApi.Controllers
 
                         if (notifTokens.Count > 0)
                         {
+                            Console.WriteLine("HERE4");
+
                             NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "Event set up", "Your event has been created. Suitable skaters have been invited");
                         }
                     }
-
                 }
 
                 return Ok(returnedEvent);
