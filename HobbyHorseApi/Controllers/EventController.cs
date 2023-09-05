@@ -41,7 +41,6 @@ namespace HobbyHorseApi.Controllers
         {
             try
             {
-                Console.WriteLine("Entered post Aggresive Event");
                 _eventsSender.SendPartialAggresiveEvent(evnt);
                 return Ok(evnt);
             }
@@ -57,8 +56,6 @@ namespace HobbyHorseApi.Controllers
         {
             try
             {
-
-                Console.WriteLine("I'm in controller, about to post the event");
                 var returnedEvent = await _service.PostEvent(evnt);
 
                 //notifiy all users of the new event
@@ -67,9 +64,7 @@ namespace HobbyHorseApi.Controllers
                 {
                     if(evnt.RecommendedSkateProfiles[0].User != null)
                     {
-                        Console.WriteLine("HERE1");
                         NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
-
                     }
                     else
                     {
@@ -83,8 +78,6 @@ namespace HobbyHorseApi.Controllers
 
                         if (notifTokens.Count > 0)
                         {
-                            Console.WriteLine("HERE2");
-
                             NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "New Event", "You have new event suggestions");
                         }
                     }
@@ -94,10 +87,7 @@ namespace HobbyHorseApi.Controllers
                 {
                     if(evnt.SkateProfiles[0].User != null)
                     {
-                        Console.WriteLine("HERE3");
-
                         NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.SkateProfiles, "Event set up", "Your event has been created. Suitable skaters have been invited");
-
                     }
                     else
                     {
@@ -111,8 +101,6 @@ namespace HobbyHorseApi.Controllers
 
                         if (notifTokens.Count > 0)
                         {
-                            Console.WriteLine("HERE4");
-
                             NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "Event set up", "Your event has been created. Suitable skaters have been invited");
                         }
                     }

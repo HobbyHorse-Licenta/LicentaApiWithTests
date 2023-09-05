@@ -36,7 +36,6 @@ namespace HobbyHorseApi.Authentication
             {
                 if (token.Equals("JBXWEYTZJBXXE43FI5SW4ZLSMF2G64Q=") == true)
                 {
-                    Console.WriteLine("TOKEN DIN GENERATOR SERVER");
                     return AuthenticateResult.Success(new AuthenticationTicket(new ClaimsPrincipal(new List<ClaimsIdentity>()
                     {
                         new ClaimsIdentity(new List<Claim>(), nameof(FirebaseAuthenticationHandler))

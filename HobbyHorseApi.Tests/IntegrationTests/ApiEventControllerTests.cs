@@ -24,7 +24,6 @@ namespace HobbyHorseApi.Tests.Controllers
             }
             else
             {
-                //_apiUrl = "https://localhost:7085"; //if API runs locally
                 _apiUrl = "https://hobby-horse-api-staging-c015da26324c.herokuapp.com"; //if API runs in staging
             }
         }
@@ -54,15 +53,15 @@ namespace HobbyHorseApi.Tests.Controllers
 
                 //assert
                 response.StatusCode.Should().Be(HttpStatusCode.OK);
-                //responseContent.Should().NotBe(null);
+                responseContent.Should().NotBe(null);
 
 
                 //act
-                //JsonSerializerOptions options = new JsonSerializerOptions();
-                //var events = JsonSerializer.Deserialize<List<Event>>(responseContent, options);
+                JsonSerializerOptions options = new JsonSerializerOptions();
+                var events = JsonSerializer.Deserialize<List<Event>>(responseContent, options);
 
                 //assert
-                //events.Should().BeOfType<List<Event>>();
+                events.Should().BeOfType<List<Event>>();
             }
         }
     }
