@@ -134,5 +134,17 @@ namespace HobbyHorseApi.Services.Implementations
                 throw;
             }
         }
+
+        public async Task<IEnumerable<Event>> GetEventsForUser(string userId)
+        {
+            try
+            {
+                return await _repo.GetEventsForUser(userId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

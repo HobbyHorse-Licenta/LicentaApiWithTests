@@ -63,24 +63,46 @@ namespace HobbyHorseApi.Controllers
 
                 //notifiy all users of the new event
                 Console.WriteLine("Sending notifications");
-                if (evnt.RecommendedSkateProfiles.Count() > 0 && evnt.RecommendedSkateProfiles[0].User != null)
+                if ((evnt.RecommendedSkateProfiles.Count() > 0 && evnt.RecommendedSkateProfiles[0].User != null) ||
+                    (evnt.SkateProfiles.Count() > 0 && evnt.SkateProfiles[0].User != null))
                 {
                     NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.RecommendedSkateProfiles, "New Event", "You have new event suggestions");
+                    NotificationUtil.SendNotificationToUsersWithSkateProfiles(evnt.SkateProfiles, "Event set up", "Your event has been created. Suitable skaters have been invited");
                 }
                 else
                 {
-                    List<string> notifTokens = new List<string>();
-
-                    foreach (SkateProfile skateProfile in evnt.RecommendedSkateProfiles)
+                    if(evnt.RecommendedSkateProfiles.Count() > 0)
                     {
-                        string token = await _notifService.GetNotificationTokenForSkateProfile(skateProfile.Id);
-                        notifTokens.Add(token);
+                        List<string> notifTokens = new List<string>();
+
+                        foreach (SkateProfile skateProfile in evnt.RecommendedSkateProfiles)
+                        {
+                            string token = await _notifService.GetNotificationTokenForSkateProfile(skateProfile.Id);
+                            notifTokens.Add(token);
+                        }
+
+                        if (notifTokens.Count > 0)
+                        {
+                            NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "New Event", "You have new event suggestions");
+                        }
                     }
 
-                    if (notifTokens.Count > 0)
+                    if (evnt.SkateProfiles.Count() > 0)
                     {
-                        NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "New Event", "You have new event suggestions");
+                        List<string> notifTokens = new List<string>();
+
+                        foreach (SkateProfile skateProfile in evnt.SkateProfiles)
+                        {
+                            string token = await _notifService.GetNotificationTokenForSkateProfile(skateProfile.Id);
+                            notifTokens.Add(token);
+                        }
+
+                        if (notifTokens.Count > 0)
+                        {
+                            NotificationUtil.SendNotificationToUsersWithNotifToken(notifTokens, "Event set up", "Your event has been created. Suitable skaters have been invited");
+                        }
                     }
+
                 }
 
                 return Ok(returnedEvent);
@@ -220,8 +242,23 @@ namespace HobbyHorseApi.Controllers
         {
             try
             {
-                var recommendedEvents = await _service.GetEventsForSkateProfile(skateProfileId);
-                return Ok(recommendedEvents);
+                var events = await _service.GetEventsForSkateProfile(skateProfileId);
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("getEvents/user/{userId}")]
+        public async Task<ActionResult<IEnumerable<Event>>> GetEventsForUser(string userId)
+        {
+            try
+            {
+                var events = await _service.GetEventsForUser(userId);
+                return Ok(events);
             }
             catch (Exception ex)
             {

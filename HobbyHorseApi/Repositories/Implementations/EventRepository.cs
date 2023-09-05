@@ -45,7 +45,7 @@ namespace HobbyHorseApi.Repositories.Implementations
                   .Include(evnt => evnt.RecommendedSkateProfiles)
                   .Include(evnt => evnt.ScheduleRefrences)
                   .Include(evnt => evnt.Outing).ThenInclude(outing => outing.Trail)
-                  .Where(evnt => evnt.RecommendedSkateProfiles.Any(skateProfile => skateProfile.Id == skateProfileId))
+                  .Where(evnt => evnt.RecommendedSkateProfiles.Any(skateProfile => String.Equals(skateProfile.Id, skateProfileId) ))
                   .ToListAsync();
 
                 foreach (Event recommendedEvent in events)
@@ -85,8 +85,45 @@ namespace HobbyHorseApi.Repositories.Implementations
                     .Include(evnt => evnt.SkateProfiles)
                     .Include(evnt => evnt.ScheduleRefrences)
                     .Include(evnt => evnt.RecommendedSkateProfiles)
-                    .Where(evnt => evnt.SkateProfiles.Any(skateProfile => skateProfile.Id == skateProfileId)).ToListAsync();
+                    .Where(evnt => evnt.SkateProfiles.Any(skateProfile => String.Equals(skateProfile.Id, skateProfileId) )).ToListAsync();
                 
+                foreach (Event evnt in events)
+                {
+                    if (evnt.Outing.Trail.GetType() == typeof(ParkTrail))
+                    {
+                        evnt.Outing.Trail = await _context.Trails
+                            .Include(trail => ((ParkTrail)trail).Location)
+                            .FirstAsync(trail => trail.Id == evnt.Outing.Trail.Id);
+                    }
+                    else
+                    {
+                        evnt.Outing.Trail = await _context.Trails
+                            .Include(trail => ((CustomTrail)trail).CheckPoints).ThenInclude(checkPoint => checkPoint.Location)
+                            .FirstAsync(trail => trail.Id == evnt.Outing.Trail.Id);
+                    }
+                }
+
+                return events;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<Event>> GetEventsForUser(string userId)
+        {
+            try
+            {
+                List<Event> events = await _context.Events
+                    .Include(evnt => evnt.Outing).ThenInclude(outing => outing.Trail)
+                    .Include(evnt => evnt.Outing).ThenInclude(outing => outing.Days)
+                    .Include(evnt => evnt.SkateProfiles)
+                    .Include(evnt => evnt.ScheduleRefrences)
+                    .Include(evnt => evnt.RecommendedSkateProfiles)
+                    .Where(evnt => evnt.SkateProfiles.Any(skateProfile => String.Equals(skateProfile.UserId, userId))).ToListAsync();
+
                 foreach (Event evnt in events)
                 {
                     if (evnt.Outing.Trail.GetType() == typeof(ParkTrail))
@@ -327,5 +364,7 @@ namespace HobbyHorseApi.Repositories.Implementations
                 throw;
             }
         }
+
+        
     }
 }

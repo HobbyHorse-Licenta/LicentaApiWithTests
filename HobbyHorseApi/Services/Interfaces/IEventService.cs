@@ -17,6 +17,8 @@ namespace HobbyHorseApi.Services.Interfaces
         Task<Event> LeaveSkateProfile(string eventId, string skateProfileId);
 
         Task<IEnumerable<Event>> GetEventsForSkateProfile(string skateProfileId);
+        Task<IEnumerable<Event>> GetEventsForUser(string userId);
+
 
     }
 

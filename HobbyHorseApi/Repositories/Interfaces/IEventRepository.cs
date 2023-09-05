@@ -16,5 +16,8 @@ namespace HobbyHorseApi.Repositories.Interfaces
         Task<Event> JoinSkateProfile(string eventId, string skateProfileId);
         Task<Event> LeaveSkateProfile(string eventId, string skateProfileId);
         Task<IEnumerable<Event>> GetEventsForSkateProfile(string skateProfileId);
+
+        Task<IEnumerable<Event>> GetEventsForUser(string userId);
+
     }
 }
