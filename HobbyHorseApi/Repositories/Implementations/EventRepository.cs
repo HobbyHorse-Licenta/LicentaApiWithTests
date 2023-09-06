@@ -217,6 +217,24 @@ namespace HobbyHorseApi.Repositories.Implementations
                 {
                     throw new Exception($"Event with id {evnt.Id} was not found");
                 }
+
+
+                for(int i = 0; i < evnt.RecommendedSkateProfiles.Count; i++)
+                {
+                    SkateProfile currentSkateProfile = evnt.RecommendedSkateProfiles[i];
+
+                    List<Schedule> schedules  = await _context.Schedules.Include(schedule => schedule.Days).
+                            Include(schedule => schedule.Zones).Where(
+                        schedule => schedule.SkateProfileId == currentSkateProfile.Id).ToListAsync();
+                    
+                    if (schedules != null)
+                    {
+                        evnt.RecommendedSkateProfiles[i].Schedules = schedules;
+                        _context.Schedules.AttachRange(schedules);
+                    }
+
+                }
+
                 _context.Entry(oldEvent).CurrentValues.SetValues(evnt);
                 await _context.SaveChangesAsync();
                 return evnt;
