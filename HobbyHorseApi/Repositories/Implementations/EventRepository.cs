@@ -236,7 +236,7 @@ namespace HobbyHorseApi.Repositories.Implementations
                     }
 
                 }
-                Console.WriteLine("EVENTREPO: " + JsonSerializer.Serialize(evnt));
+                Console.WriteLine("EVENTREPO: "/* + JsonSerializer.Serialize(evnt)*/);
                 _context.Entry(oldEvent).CurrentValues.SetValues(evnt);
                 await _context.SaveChangesAsync();
                 return evnt;
