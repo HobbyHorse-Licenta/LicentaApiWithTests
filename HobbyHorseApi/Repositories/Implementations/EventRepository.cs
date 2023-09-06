@@ -221,42 +221,7 @@ namespace HobbyHorseApi.Repositories.Implementations
                     throw new Exception($"Event with id {evnt.Id} was not found");
                 }
 
-
-                //for(int i = 0; i < evnt.RecommendedSkateProfiles.Count; i++)
-                //{
-                //    SkateProfile currentSkateProfile = evnt.RecommendedSkateProfiles[i];
-
-                //    List<Schedule> schedules  = await _context.Schedules.Include(schedule => schedule.Days).
-                //            Include(schedule => schedule.Zones).Where(
-                //        schedule => schedule.SkateProfileId == currentSkateProfile.Id).ToListAsync();
-
-                //    if (schedules != null)
-                //    {
-                //        evnt.RecommendedSkateProfiles[i].Schedules = schedules;
-                //        _context.Schedules.AttachRange(schedules);
-                //    }
-
-                //}
-
-                //var oldEvent = await _context.SkateProfiles.FindAsync(evnt.Id);
-                //if (oldEvent == null)
-                //{
-                //    throw new Exception($"Event with id {evnt.Id} was not found");
-                //}
-
-                //foreach (SkateProfile skateprofile in evnt.RecommendedSkateProfiles)
-                //{
-                //    var skateprofileRef = await _context.SkateProfiles.FindAsync(skateprofile.Id);
-                //    if (skateprofileRef != null)
-                //    {
-                //        _context.SkateProfiles.Attach(skateprofileRef);
-                //    }
-
-                //}
-
-                //oldEvent.RecommendedSkateProfiles.AddRange(evnt.RecommendedSkateProfiles);
                 _context.Entry(oldEvent).CurrentValues.SetValues(evnt);
-                //oldEvent.RecommendedSkateProfiles = evnt.RecommendedSkateProfiles;
                 await _context.SaveChangesAsync();
                 
                 _context.Database.ExecuteSql($"INSERT INTO EventSkateProfile1 (RecommendedEventsId, RecommendedSkateProfilesId) VALUES ({evnt.Id},{evnt.RecommendedSkateProfiles[0].Id})");
