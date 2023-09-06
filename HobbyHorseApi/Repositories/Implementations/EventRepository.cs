@@ -214,29 +214,29 @@ namespace HobbyHorseApi.Repositories.Implementations
         {
             try
             {
-                var oldEvent = await _context.Users.FindAsync(evnt.Id);
+                var oldEvent = await _context.Events.FindAsync(evnt.Id);
                 if (oldEvent == null)
                 {
                     throw new Exception($"Event with id {evnt.Id} was not found");
                 }
 
 
-                for(int i = 0; i < evnt.RecommendedSkateProfiles.Count; i++)
-                {
-                    SkateProfile currentSkateProfile = evnt.RecommendedSkateProfiles[i];
+                //for(int i = 0; i < evnt.RecommendedSkateProfiles.Count; i++)
+                //{
+                //    SkateProfile currentSkateProfile = evnt.RecommendedSkateProfiles[i];
 
-                    List<Schedule> schedules  = await _context.Schedules.Include(schedule => schedule.Days).
-                            Include(schedule => schedule.Zones).Where(
-                        schedule => schedule.SkateProfileId == currentSkateProfile.Id).ToListAsync();
+                //    List<Schedule> schedules  = await _context.Schedules.Include(schedule => schedule.Days).
+                //            Include(schedule => schedule.Zones).Where(
+                //        schedule => schedule.SkateProfileId == currentSkateProfile.Id).ToListAsync();
                     
-                    if (schedules != null)
-                    {
-                        evnt.RecommendedSkateProfiles[i].Schedules = schedules;
-                        _context.Schedules.AttachRange(schedules);
-                    }
+                //    if (schedules != null)
+                //    {
+                //        evnt.RecommendedSkateProfiles[i].Schedules = schedules;
+                //        _context.Schedules.AttachRange(schedules);
+                //    }
 
-                }
-                Console.WriteLine("EVENTREPO: "/* + JsonSerializer.Serialize(evnt)*/);
+                //}
+               
                 _context.Entry(oldEvent).CurrentValues.SetValues(evnt);
                 await _context.SaveChangesAsync();
                 return evnt;

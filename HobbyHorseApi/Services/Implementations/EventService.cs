@@ -127,7 +127,7 @@ namespace HobbyHorseApi.Services.Implementations
         {
             try
             {
-                return await _repo.PostEvent(evnt);
+                return await _repo.PutEvent(evnt);
             }
             catch (Exception ex)
             {
