@@ -12,9 +12,9 @@ namespace HobbyHorseApi.Authentication
     public class FirebaseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly FirebaseApp _firebaseApp;
-        public FirebaseAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock/*, FirebaseApp firebaseApp*/) : base(options, logger, encoder, clock)
+        public FirebaseAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, FirebaseApp firebaseApp) : base(options, logger, encoder, clock)
         {
-            //_firebaseApp = firebaseApp;
+            _firebaseApp = firebaseApp;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
