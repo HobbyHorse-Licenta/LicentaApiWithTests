@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 
 namespace HobbyHorseApi.Repositories.Implementations
 {
@@ -234,7 +236,7 @@ namespace HobbyHorseApi.Repositories.Implementations
                     }
 
                 }
-
+                Console.WriteLine("EVENTREPO: " + JsonSerializer.Serialize(evnt));
                 _context.Entry(oldEvent).CurrentValues.SetValues(evnt);
                 await _context.SaveChangesAsync();
                 return evnt;
