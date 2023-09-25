@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using HobbyHorseApi.JsonConverters;
 using HobbyHorseApi.RabbitMQ;
-using System.Security.Cryptography;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using HobbyHorseApi.Authentication;
@@ -49,7 +47,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HobbyHorseContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+    if (String.Equals(Environment.GetEnvironmentVariable("USE_DATABASE"), "PostgreSQL") == true)
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
+    }
+    else options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"));
 });
 
 builder.Services.AddSingleton(FirebaseApp.Create());
@@ -73,6 +75,14 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddSingleton<SenderAndReceiver>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<HobbyHorseContext>();
+    context.Database.Migrate();
+    string script = context.Database.GenerateCreateScript();
+    context.Database.ExecuteSqlRaw(script);
+}
 
 app.UseCors(corsPolicyName);
 
