@@ -105,3 +105,5 @@ D:\Licenta\Project\restApi\HobbyHorseApi\HobbyHorseApiWithTests\HobbyHorseApi\ob
 D:\Licenta\Project\restApi\HobbyHorseApi\HobbyHorseApiWithTests\HobbyHorseApi\obj\Debug\net6.0\HobbyHorseApi.pdb
 D:\Licenta\Project\restApi\HobbyHorseApi\HobbyHorseApiWithTests\HobbyHorseApi\obj\Debug\net6.0\HobbyHorseApi.genruntimeconfig.cache
 D:\Licenta\Project\restApi\HobbyHorseApi\HobbyHorseApiWithTests\HobbyHorseApi\obj\Debug\net6.0\ref\HobbyHorseApi.dll
+D:\Licenta\Project\restApi\HobbyHorseApi\HobbyHorseApiWithTests\HobbyHorseApi\bin\Debug\net6.0\Npgsql.dll
+D:\Licenta\Project\restApi\HobbyHorseApi\HobbyHorseApiWithTests\HobbyHorseApi\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

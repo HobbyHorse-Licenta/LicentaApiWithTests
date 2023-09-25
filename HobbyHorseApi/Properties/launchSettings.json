@@ -4,7 +4,9 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "USE_DATABASE": "PostgreSQL",
+        "GOOGLE_APPLICATION_CREDENTIALS": "firebase-config.json"
       },
       "applicationUrl": "https://localhost:56500;http://localhost:56501"
     }

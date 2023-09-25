@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using HobbyHorseApi.Authentication;
 using FirebaseAdmin;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Google.Apis.Auth.OAuth2;
+using Polly;
 
 var corsPolicyName = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -49,9 +52,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HobbyHorseContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"));
+    //options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
+
+    //if(String.Equals(Environment.GetEnvironmentVariable("USE_DATABASE"), "PostgreSQL") == true)
+    //{
+    //    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
+    //}
+    //else options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"));
 });
 
+//var firebaseCredential = GoogleCredential.FromFile("./appsettings.json");
 builder.Services.AddSingleton(FirebaseApp.Create());
 
 builder.Services.AddScoped<ISkillService, SkillService>();
@@ -73,6 +84,12 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddSingleton<SenderAndReceiver>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<HobbyHorseContext>();
+    context.Database.Migrate();
+}
 
 app.UseCors(corsPolicyName);
 
