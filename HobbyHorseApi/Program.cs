@@ -7,15 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using HobbyHorseApi.JsonConverters;
 using HobbyHorseApi.RabbitMQ;
-using System.Security.Cryptography;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using HobbyHorseApi.Authentication;
 using FirebaseAdmin;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using Google.Apis.Auth.OAuth2;
-using Polly;
 
 var corsPolicyName = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -52,17 +47,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HobbyHorseContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"));
-    //options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
-
-    //if(String.Equals(Environment.GetEnvironmentVariable("USE_DATABASE"), "PostgreSQL") == true)
-    //{
-    //    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
-    //}
-    //else options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"));
+    if (String.Equals(Environment.GetEnvironmentVariable("USE_DATABASE"), "PostgreSQL") == true)
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
+    }
+    else options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection"));
 });
 
-//var firebaseCredential = GoogleCredential.FromFile("./appsettings.json");
 builder.Services.AddSingleton(FirebaseApp.Create());
 
 builder.Services.AddScoped<ISkillService, SkillService>();
@@ -89,6 +80,8 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<HobbyHorseContext>();
     context.Database.Migrate();
+    string script = context.Database.GenerateCreateScript();
+    context.Database.ExecuteSqlRaw(script);
 }
 
 app.UseCors(corsPolicyName);
